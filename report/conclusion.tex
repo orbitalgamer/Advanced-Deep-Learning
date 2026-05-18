@@ -1,0 +1,51 @@
+
+
+% \section*{Conclusion}
+% \addcontentsline{toc}{section}{Conclusion}
+% To sum up this arictle. We have tested 4 algorithm in 3 big families: ARIMA and Random forest in classical machine learning alorgithm, LSTM in the recuren model family and a transformer.
+% \par
+% All this model were trained on the next day forecasting while having as input a full week of data.
+% \par
+% Theorical studies implied that the best result should have been the transformer. Which we were able to confirm on our task of forecasting the next data point. But transformer rapidly became worse the longer we forecasted. 
+% \par
+% On our next day forecasting we have that besides ARIMA all models had the same capabilities. But when trying on long term forecasting with recursive usage of the forecasted value, we observed that LSTM was better suited for this task.
+% \par
+% With our analysis we have seen that LSTM could be use to 30 days of forecasting but we would not recommend to go beyond 15 days.
+% \par
+% As future perspective for this work. It would be great to try using bigger forecasting windows. We mean by that that our model only predict one full day a the time so it need to reuse this predicted value to get to 15 days. We might get better result with a model that would predict maye 2 or 5 days of data at once.
+% \par
+% Due to material constraint, we need to reduce the number of parameter and epoch on the transformer model. Maybe with better training you could get better result.
+\newpage
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+
+This work presented a comparative study of four forecasting approaches drawn from three major model families: classical statistical and machine learning models (ARIMA and Random Forest), recurrent neural networks (LSTM), and transformer-based architectures.
+
+\par
+All models were trained to perform one-day-ahead forecasting (96 time steps) using a one-week historical input window. Their performance was evaluated across multiple forecasting horizons, including one-step-ahead, one-day-ahead, and long-term recursive forecasting.
+
+\par
+From a theoretical perspective, transformer-based models are expected to deliver superior performance due to their ability to capture complex temporal dependencies. This expectation was confirmed for the one-step-ahead forecasting task, where the transformer achieved the lowest error across all evaluated metrics. However, performance degraded more rapidly for longer forecasting horizons.
+
+\par
+For one-day-ahead forecasting, all models except ARIMA exhibited comparable performance, suggesting that short-term daily consumption patterns can be effectively captured by a variety of modeling approaches. In contrast, long-term recursive forecasting revealed clearer differences between models, with the LSTM consistently demonstrating greater robustness to error accumulation.
+
+\par
+Although quantitative metrics indicate that LSTM-based forecasts may remain usable for horizons of up to 30 days, a conservative operational limit of approximately 15 days is recommended, beyond which uncertainty and accumulated error become substantial.
+
+% \par
+% Several avenues for future work emerge from this study. One promising direction is the use of longer forecasting windows, where models predict multiple consecutive days simultaneously rather than relying on recursive one-day-ahead predictions. Such an approach could reduce error propagation and improve long-horizon forecasting performance.
+% Secondly, feature engineering might also be good to explore to give multiple source of information at the model.
+
+% \par
+% Finally, due to computational constraints, the transformer model was trained with a reduced number of parameters and training epochs. Future experiments with increased model capacity and extended training may further improve transformer performance and provide a more comprehensive comparison between architectures.
+
+
+\par
+Several avenues for future work emerge from this study. One promising direction is the use of longer forecasting windows, where models predict multiple consecutive days simultaneously rather than relying on recursive one-day-ahead forecasting. Such an approach could reduce error propagation and potentially improve long-horizon forecasting performance.
+
+\par
+Another important direction concerns feature engineering. Incorporating additional explanatory variables, such as calendar-based features (e.g., day of the week or seasonality indicators), could provide the models with richer contextual information and lead to more accurate forecasts.
+
+\par
+Finally, due to computational constraints, the Transformer model was trained with a limited number of parameters and training epochs. Future experiments using larger model capacities and longer training schedules may further improve Transformer performance and allow for a more comprehensive comparison between deep learning architectures.

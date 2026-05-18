@@ -1,0 +1,130 @@
+% \section{Proposed approach}
+% Beofre looking at any model we have started to look first at the dataset to see the form of data and them look at model that would be best-suited for our model.
+
+% \par
+% Our dataset is the \textit{Electricity Diagrams}\cite{electricityloaddiagrams20112014_321} which represent the electric consumption from 370 clients. For each client we have data from begining of 2011 to the end of 2014 and we have a data point every 15 minutes. Which represent over 140 256 data points.
+% \par
+% The author of this dataset also stated that some of this 370 client were aquired only later than 2011 so there data before the aquiring date is juste defaulted to 0.
+% \par
+% We were tasked to create a model that is capable of forecasting for only one client. Without any constraint on a specific client we have looked at all client and took a client that was already there since the begining in 2011 to have the maximum data possible. It might be too much data but at least we can reduce it afterwards and don't need to change client for a specific model because we would lack of data.
+% \par
+% Also the dataset state that there is no missing data but while we were looking at the data we have seen client that were consuming electricity and then no consumption. We also avoid those client due to harsh cut in consumption which ressemble most to a technical difficulty that realy good data.
+% \par
+% With that in mind we look at every client which minimum consumption is greate than 0. With that we still have a lot of choice of 90 clients and we arbirtraly took the client \textbf{MT\_292}. Figure~(\ref{fig:dataset}) represent it consumption.
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=1\textwidth]{images/dataset.png}
+% \caption{Consumption of client 'MT\_292' from 2011 to 2014}
+% \label{fig:dataset}
+% \end{figure}
+
+% This show that we only have one feature to look: the consumtion. We don't need to look at other factor that could be linked like number of employe or other. We could extract other feature based on the date. We wont try here to extract feature like day of week, or other things in the dataset.
+
+\section{Proposed approach}
+
+Before considering specific forecasting models, an initial analysis of the dataset was conducted in order to understand its structure and determine which modeling approaches would be most appropriate.
+
+\par
+The dataset used in this study is the \textit{Electricity Load Diagrams} dataset \cite{electricityloaddiagrams20112014_321}, which contains electricity consumption data for 370 clients. For each client, measurements are recorded at 15-minute intervals from the beginning of 2011 to the end of 2014, resulting in up to 140{,}256 observations per client.
+
+\par
+The dataset documentation indicates that some of the 370 clients were added after 2011, and that their consumption values prior to the acquisition date are set to zero. These artificially introduced zero values do not correspond to actual consumption and therefore need to be handled carefully during model selection.
+
+\par
+The objective of this work is to construct a forecasting model for a single client. In order to maximize the amount of available training data and ensure consistency across experiments, we considered only clients whose data spans the entire observation period starting in 2011. This choice allows us to later reduce the training horizon if necessary, without having to change the selected client due to data scarcity.
+
+\par
+Although the dataset is reported to contain no missing values, exploratory data analysis revealed that some clients exhibit extended periods of zero consumption following non-zero activity. Such abrupt and persistent drops in consumption are likely to reflect data collection issues or atypical behavior rather than realistic usage patterns. Consequently, these clients were excluded from further analysis.
+
+\par
+Based on these criteria, we selected clients whose minimum recorded consumption is strictly greater than zero. This filtering step resulted in a subset of 90 clients. From this subset, the client \textbf{MT\_292} was selected for further experimentation. Figure~\ref{fig:dataset} illustrates the electricity consumption of this client over the full observation period.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{images/dataset.png}
+\caption{Electricity consumption of client \textbf{MT\_292} from 2011 to 2014}
+\label{fig:dataset}
+\end{figure}
+
+\par
+For the selected client, the dataset contains a single primary feature: electricity consumption. In this study, we focus exclusively on this univariate time series. While additional features could be derived from the timestamp (e.g., day of the week or time of day), no explicit feature engineering based on calendar information is performed.
+
+\par
+
+% We are going to create model that are capable to forecast one full day which mean 96 new points while looking at some data in the past.
+% \par
+% We are going to use 4 differents models. The 2 that are the most obvious are LSTM and transformer because they best suited for this kind of problem and have been used in the past for this. 
+% \par
+% We are considering both because we should have enough data to train transformer but transformer is realy only usefull to capture realy complicated and long relation ship. It might not be required and LSTM model would get nearly as good result while being lighter and requiring less expensive hardware to deploy afterwards.
+
+% \par
+% We also want to compare it to simplier machine learning method like ARIMA. Our data is seasonal so SARIMA should be interessint to try. We were not able to train this model due to its complexity being why greater than ARIMA so we had to use ARIMA. We have tried giving only less informations and find that it was trainable with only 1 or 2 week of data which is way less than years. Also a problem of those model is that they are made to predict the next point and will required to use this point to forecast a second point. If the model is not capable of good forecasting we will have that error will accumulate fast.
+
+% \par
+% To finish, we also are going to use a Random Forest Regressor. This model is not made at the basis to do timeserie forecasting but we can manipulate while giving a windows as input and output to adapt this model. The idea behind is to see how well we can use a model that is not meant for this task and get good result.
+
+% \par
+% Somes metrics are required to be able to compare correctly the model between them. For that we have used :
+% \begin{itemize}
+%     \item Mean Average Aboslute Error: MAE = $\frac{1}{n}\sum^{n}_{i=1}|y_i-\hat{y}_i|$. It measures directly by how much the forecasting is wrong so it means that is dependant on the size of the data. This metric would not be suited to compare between different clients.
+%     \item Mean Average Scalled Absolute Error: MASE = $\frac{\text{MAE}}{\text{MAE}_{\text{naive train}}}$. This metrice normalise MAE by dividing it by the MAE of a naive model (model that just say the last value seen) on the train. If value is better than 1, it mean that we are making a better job than a naive model. 
+%     \item Symetric Mean Absolue Error: SMAPE = $\frac{2}{n} \sum_{t=1}^n \frac{\left|y_t-\hat{y}_t\right|}{|y_t|+|\hat{y}_t|}$. Reprensent the percentage of how much any forecast is off.
+% \end{itemize}
+% In each case, $y$ represent the target value and $\hat{y}$ the predicted value and $n$ is the number of point used to compute the metric. For each metric, the tinier they are the better the model is. 
+
+
+% \par
+% Each model will be evaluated on 3 task: forecasting the next point, forecasting the next day and forecasting the trait in set. The first 2 task is to try the short terme forecasting abilities of our model and the last one is to try the long term forecasting.
+
+% \par
+% In advance, we assume that long term forecastin will yield to poor metrics due to error accumulation on long period of time and so for this long term we will also take forecasting at 1 day, 1 week, 1 month and all the dataset to see at which point the error accumulation is too much to be used.
+
+
+The objective of the proposed models is to forecast electricity consumption over a full day, corresponding to 96 consecutive time steps, using historical observations as input.
+
+\par
+Four different forecasting approaches are considered. Among them, Long Short-Term Memory (LSTM) networks and transformer-based models are natural candidates, as they are well suited for sequential prediction tasks and have been successfully applied to time series forecasting in prior work.
+
+\par
+Both architectures are evaluated in order to assess the trade-off between model complexity and predictive performance. While transformer models are particularly effective at capturing complex and long-range dependencies, such capabilities may not be strictly necessary for this task. Given the structure of the data, an LSTM model may achieve comparable performance while being computationally lighter and easier to use in practice.
+
+\par
+In addition to deep learning approaches, we include classical statistical models as baselines. Since the data exhibits clear seasonal patterns, a Seasonal ARIMA (SARIMA) model would be a natural choice. However, due to the high computational cost and parameter complexity of SARIMA for long time series, we instead employ a standard ARIMA model. Preliminary experiments showed that SARIMA models can be trained using relatively short historical windows (e.g., one to two weeks of data), which is significantly smaller than the full dataset. A known limitation of ARIMA-based approaches is that they are designed for one-step-ahead forecasting; multi-step forecasts therefore require recursive predictions, which can lead to rapid error accumulation.
+
+\par
+Finally, a Random Forest Regressor is considered. Although this model is not inherently designed for time series forecasting, it can be adapted to the task by using sliding windows of past observations as input features. This approach allows us to evaluate how well a non-sequential machine learning model performs when repurposed for forecasting tasks.
+
+\par
+To enable a fair comparison between models, several evaluation metrics are used:
+\begin{itemize}
+    \item \textbf{Mean Absolute Error (MAE)}:
+    \[
+    \text{MAE} = \frac{1}{n}\sum_{i=1}^{n} |y_i - \hat{y}_i|,
+    \]
+    which directly measures the average magnitude of forecasting errors. Since MAE depends on the scale of the data, it is not suitable for comparing results across different clients.
+    
+    \item \textbf{Mean Absolute Scaled Error (MASE)}:
+    \[
+    \text{MASE} = \frac{\text{MAE}}{\text{MAE}_{\text{naive}}},
+    \]
+    where $\text{MAE}_{\text{naive}}$ corresponds to the MAE of a naive forecasting model that predicts the last observed value used on the train set. Values below 1 indicate an improvement over the naive baseline.
+    
+    \item \textbf{Symmetric Mean Absolute Percentage Error (SMAPE)}:
+    \[
+    \text{SMAPE} = \frac{2}{n} \sum_{i=1}^{n} \frac{|y_i - \hat{y}_i|}{|y_i| + |\hat{y}_i|},
+    \]
+    which expresses forecasting error as a relative percentage.
+\end{itemize}
+
+\par
+In all cases, $y$ denotes the true target value, $\hat{y}$ the predicted value, and $n$ the number of observations used to compute the metric. Lower values indicate better predictive performance.
+
+\par
+Each model is evaluated on three forecasting tasks: one-step-ahead prediction, one-day-ahead forecasting, and long-horizon forecasting over the entire test set. The first two tasks assess short-term predictive performance, while the final task evaluates the models' ability to maintain accuracy over extended horizons.
+
+\par
+We anticipate that long-term forecasts will exhibit degraded performance due to the accumulation of prediction errors over time. To further analyze this effect, additional evaluations are conducted at intermediate horizons (one day, one week, one month, and the full test period) in order to identify the point at which error accumulation renders forecasts unreliable.
+
+
+

@@ -1,0 +1,43 @@
+% \section*{Abstract}
+% \addcontentsline{toc}{section}{Abstract}
+% In this paper we are going to do time series forecasting applied on energy consumption. We will be using 4 different well known method: ARIMA, Random Forest, LSTM and Transformer. We compare them on 3 differents task 1 datapoint forecasting, one-day forecasting and the all the test set recursive forecasting. We have found that for long term forecasting LSTM was the best suited model that could predict up to 15 days in advance the consumption while retaining good metrics.
+
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract}
+
+Time series forecasting plays a crucial role in modeling and predicting energy consumption, where accurate forecasts are essential for planning and operational decision-making. In this paper, we study the problem of electrical energy consumption forecasting and compare four widely used approaches: ARIMA, Random Forest regression, Long Short-Term Memory (LSTM) networks, and Transformer-based models.
+\par
+The models are evaluated on three forecasting tasks of increasing difficulty: one-step-ahead prediction, one-day-ahead forecasting, and long-term recursive forecasting over the entire test set. Performance is assessed using standard error metrics, including MAE, MASE, and SMAPE.
+\par
+Our results show that Transformer models achieve the best performance for short-term, one-step-ahead forecasting, while ARIMA struggle in multi-step settings. For long-term recursive forecasting, LSTM models demonstrate superior stability and robustness, maintaining acceptable accuracy for prediction horizons of up to 15 days.
+
+
+% \section*{Introduction}
+% \addcontentsline{toc}{section}{Introduction}
+
+% Time series forecasting (or analysis) is the method used to analyse the time series and forecast the futur evolution of this data. Time series is a special type of data that is composed by a list of point that are taken succesively. It is the most often used to see the evolution of a data in the time. Those data can represent whatever it need to be: failure in a system, price of a stock.
+
+
+% \par
+% In our case, we will applying this principes to forecast of energy consumtion.
+% In this rapport we will start to by talking about related work already available in the stat of the art. We will then explain our approach of this problem and explain our experimental setup. We will then finish by our result and an conclusion to sum up everything.
+
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+Time series forecasting is the process of analyzing historical observations collected over time in order to model underlying patterns and predict future values. A time series is a specific type of data composed of sequentially ordered observations, typically recorded at regular time intervals. Such data are widely used to study temporal evolution in a broad range of applications, including system monitoring, financial markets, and demand estimation.
+
+\par
+In this work, we focus on the problem of forecasting electrical energy consumption. Accurate energy demand forecasting is a critical task for resource planning, load balancing, and operational decision-making. The temporal nature of consumption data, combined with recurring patterns and long-term trends, makes time series modeling particularly well suited for this application.
+
+\par
+This report is structured as follows. First, we review related work and existing approaches from the state of the art. We then describe our methodology and experimental setup, including data preprocessing, model selection, and evaluation metrics. Finally, we present and analyze the experimental results before concluding with a summary of the main findings and perspectives for future work.
+
+
+% TO DO FINIR INTRO QUAND TOUT FAIT SERA PLUS SIMPLE
+
+% JUSTE DOIT DIRE QUE VA UTILISER 2 MODÈLE NORMAL ET 1 DEEP ET 1 TRANSOFRMER
+
+
+
